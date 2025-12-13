@@ -1,10 +1,15 @@
 import torch
 import torch.nn as nn
-from datasets import load_dataset
-from sentence_transformers import SentenceTransformer
-from torch.utils.data import DataLoader, TensorDataset
 from sklearn.metrics import accuracy_score, confusion_matrix, f1_score
-from dataloader import BATCH_SIZE_TRAIN, EPOCHS, LR, DEVICE, BATCH_SIZE_EMB
+from dataloader import DEVICE
+
+
+MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
+BATCH_SIZE_EMB = 64
+EPOCHS = 25
+LR = 1e-3
+SEED = 2025
+EARLY_STOPPING_PATIENCE = 3
 
 class ANNClassifier(nn.Module):
     def __init__(self, input_dim: int, num_classes: int):
@@ -48,13 +53,16 @@ def compute_embeddings(model, X_train_texts, X_val_texts, X_test_texts):
     return X_train, X_val, X_test
 
 
-def train_ann_classifier(input_dim, num_classes, train_loader, val_loader, device):
+def train_ann_classifier(input_dim, num_classes, train_loader, val_loader, device: torch.device = DEVICE):
     ann = ANNClassifier(input_dim, num_classes).to(device)
     optimizer = torch.optim.Adam(ann.parameters(), lr=LR)
     criterion = nn.CrossEntropyLoss()
 
     print("\nTraining ANN classifier...")
-    best_val_acc = 0.0
+    
+    # Initialize Early Stopping variables
+    best_val_f1 = -1.0
+    patience_counter = 0
     best_state = None
 
     for epoch in range(1, EPOCHS + 1):
@@ -82,20 +90,35 @@ def train_ann_classifier(input_dim, num_classes, train_loader, val_loader, devic
                 true.extend(yb.numpy().tolist())
 
         val_acc = accuracy_score(true, preds)
-        print(f"Epoch {epoch}: val acc = {val_acc:.4f}")
+        # Calculate Macro F1 Score for Early Stopping
+        val_f1 = f1_score(true, preds, average='macro')
+        
+        print(f"Epoch {epoch}: val acc = {val_acc:.4f}, val f1 = {val_f1:.4f}")
 
-        if val_acc > best_val_acc:
-            best_val_acc = val_acc
-            best_state = ann.state_dict()
+        # Early Stopping Logic
+        if val_f1 > best_val_f1:
+            best_val_f1 = val_f1
+            best_state = ann.state_dict() # Save best model state
+            patience_counter = 0
+        else:
+            patience_counter += 1
+            if patience_counter >= EARLY_STOPPING_PATIENCE:
+                print(f"Early stopping triggered at epoch {epoch}. Best Macro F1: {best_val_f1:.4f}")
+                break
 
-    # load best model (optional but usually good practice)
+    # Load best model state before returning
     if best_state is not None:
         ann.load_state_dict(best_state)
+    else:
+        # Fallback in case no improvement was ever made (e.g., if best_val_f1 starts at -1 and validation is 0)
+        # This is unlikely but ensures a model is returned.
+        print("Note: No improved state found or only one epoch ran. Returning last epoch's model.")
+
 
     return ann
 
 
-def evaluate_on_test(model, test_loader, device):
+def evaluate_on_test(model, test_loader, device: torch.device = DEVICE):
     model.eval()
     preds, true = [], []
     with torch.no_grad():
@@ -116,4 +139,4 @@ def evaluate_on_test(model, test_loader, device):
     print("Confusion matrix:")
     print(cm)
 
-    return acc, cm
+    return acc, f1, cm

@@ -5,6 +5,11 @@ from tqdm import tqdm
 import numpy as np
 from dataloader import load_emotion_dataset, set_seed, SEED, DEVICE
 
+def _device_index_for_pipeline(device: torch.device) -> int:
+    if device.type == "cuda" and torch.cuda.is_available():
+        return 0
+    return -1
+
 def run_zero_shot(texts, labels, model_name="facebook/bart-large-mnli", batch_size=32, template="This text expresses {}."):
     """
     Perform zero-shot classification on a list of texts.
@@ -24,7 +29,7 @@ def run_zero_shot(texts, labels, model_name="facebook/bart-large-mnli", batch_si
     # Initialize the pipeline
     # Note: pipeline handles device placement. 
     # If DEVICE is a torch.device, we can pass it directly or pass the device index.
-    classifier = pipeline("zero-shot-classification", model=model_name, device=DEVICE)
+    classifier = pipeline("zero-shot-classification", model=model_name, device=_device_index_for_pipeline(DEVICE))
     
     preds = []
     
@@ -45,40 +50,30 @@ def run_zero_shot(texts, labels, model_name="facebook/bart-large-mnli", batch_si
             
     return preds
 
-if __name__ == "__main__":
+def part_two(model_name: str = "facebook/bart-large-mnli", template: str = "This text expresses {}."):
     set_seed(SEED)
-    
-    # 1. Load Dataset
-    # We only need the test set for this part, as Zero-Shot doesn't require training
+
     print("Loading dataset...")
     _, _, _, _, X_test_texts, y_test, label_names, _ = load_emotion_dataset()
-    
+
     print(f"Labels: {label_names}")
     print(f"Test set size: {len(X_test_texts)}")
-    
-    # 2. Run Zero-Shot Classification
-    # We use a hypothesis template suitable for emotion detection
-    template = "This text expresses {}."
-    
-    # You can experiment with different models, e.g.:
-    # - "facebook/bart-large-mnli" (High accuracy, slower)
-    # - "cross-encoder/nli-distilroberta-base" (Faster, might be less accurate for zero-shot pipeline usage directly without adaptation)
-    # - "typeform/distilbert-base-uncased-mnli"
-    model_name = "facebook/bart-large-mnli"
-    
+
     predicted_labels = run_zero_shot(X_test_texts, label_names, model_name=model_name, template=template)
-    
-    # 3. Evaluate
-    # Convert numeric ground truth to string labels
+
     true_labels = [label_names[i] for i in y_test]
-    
+
     acc = accuracy_score(true_labels, predicted_labels)
     print(f"\nZero-Shot Accuracy: {acc:.4f}")
-    
+
     print("\nClassification Report:")
     print(classification_report(true_labels, predicted_labels, digits=4))
-    
-    # Print Confusion Matrix
+
     cm = confusion_matrix(true_labels, predicted_labels, labels=label_names)
     print("\nConfusion Matrix:")
     print(cm)
+
+    from sklearn.metrics import f1_score
+    f1 = f1_score(true_labels, predicted_labels, average="macro")
+
+    return acc, f1, cm, predicted_labels

@@ -9,11 +9,9 @@ from torch.utils.data import DataLoader, TensorDataset
 
 # check TP2 assignment instructions for links to other model options
 MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
-BATCH_SIZE_EMB = 64
 BATCH_SIZE_TRAIN = 64
-EPOCHS = 5
-LR = 1e-3
 SEED = 2025
+
 
 ## ubuntu or windows with cuda support
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
