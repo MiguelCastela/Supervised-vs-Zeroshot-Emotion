@@ -101,8 +101,11 @@ def part_one():
 
 def part_two():
     """Run NLI zero-shot classification (current `NLI.py` main) from main.py."""
-    acc_nli, f1_nli, cm_nli, _ = run_nli_part_two()
+    # Using DeBERTa v3 large zero-shot model
+    model_name = "MoritzLaurer/bge-m3-zeroshot-v2.0"
+    acc_nli, f1_nli, cm_nli, _ = run_nli_part_two(model_name=model_name)
     print("\n========== Part 2: NLI (Zero-Shot) ==========")
+    print(f"Model: {model_name}")
     print(f"Accuracy:  {acc_nli:.4f}")
     print(f"Macro F1:  {f1_nli:.4f}")
     print("Confusion matrix (counts):")
