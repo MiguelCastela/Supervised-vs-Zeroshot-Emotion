@@ -84,12 +84,12 @@ Surprise & 572   & 81  & 66  & 3.6\% \\
 
 \noindent
 \\
-By looking at table ~\ref{tab:dataset_dist}, it's clear that the dataset is imbalanced, with the \textit{joy} and \textit{sadness} classes being significantly more represented, together accounting for over 60\% of the data. In contrast, the \textit{surprise} class is the least represented by a considerable margin, 3.6\%. This imbalance could lead to biased model performance, favoring the majority classes, and already gives away that ``Accuracy'' might not be the best metric to evaluate the models.
+By looking at table ~\ref{tab:dataset_dist}, it's clear that the dataset is imbalanced, with the \textit{joy} and \textit{sadness} classes being significantly more represented, together accounting for over 60\% of the data. In contrast, the \textit{surprise} class is the least represented by a considerable margin, 3.6\%. This imbalance could lead to biased model performance, favoring the majority classes, and makes it clear that ``Accuracy'' might not be the best metric to evaluate the models.
 
 
 \noindent
 \\
-Another issue present is the overfitting of words or terms to a certain emotion. For example, the word ``happy'' is strongly associated with the \textit{joy} class, and its presence in a text sample could lead the model to predict \textit{joy} regardless of the overall context One example of this is [por exemplo...].
+Another issue present is the overfitting of words or terms to certain emotions. For example, the word ``happy'' is strongly associated with the \textit{joy} class, and its presence in a text sample could lead the model to predict \textit{joy} regardless of the overall context. One example of this is [por exemplo...]. Such biases can hinder the model's ability to generalize to unseen data, especially when the emotional context is more nuanced or when words have different connotations in different contexts.
 
 \section{Approach and Architecture}
 \subsection{Supervised Classification with Frozen Transformer Embeddings}
