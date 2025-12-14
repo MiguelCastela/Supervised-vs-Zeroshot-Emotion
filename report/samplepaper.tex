@@ -102,7 +102,7 @@ The Emotion dataset is loaded using the HuggingFace \texttt{datasets} library an
 
 
 
-\subsection{Embedding Generation}
+\subsection{Embedding Generation} \label{sec:embedding}
 
 \noindent
 \\
@@ -187,6 +187,26 @@ After obtaining predictions for the test set, the model's performance is assesse
 In this section, we detail the specific models employed in both the supervised and zero-shot classification approaches, along with their configurations and relevant hyperparameters.
 
 \subsection{Supervised Models}
+The ANN utilized in supervised  training was configured with the hyperparameters listed in Table~\ref{tab:supervised_hyperparams}. Two distinct pretrained Transformer models from the \texttt{sentence-transformers} library, mentioned in section~\ref{sec:embedding} were employed to generate sentence embeddings: \texttt{distilroberta-base-paraphrase-v1} and \texttt{all-MiniLM-L6-v2}. Their configurations, including embedding dimensions and batch sizes, are summarized in Table ~\ref{tab:supervised_models}. Experiments were conducted using five different random seeds to account for variability in training outcomes.
+
+\begin{table}[H]
+\centering
+\caption{Hyperparameters for supervised training}
+\label{tab:supervised_hyperparams}
+\begin{tabular}{lc}
+\hline
+\textbf{Hyperparameter} & \textbf{Value} \\
+\hline
+Batch Size & 64 \\
+Learning Rate & $1 \times 10^{-3}$ \\
+Epochs & 25 with Early Stopping \\
+Loss Function & Cross-Entropy Loss \\
+Optimizer & Adam \\
+Seeds & [2025, 2029] \\
+\hline
+\end{tabular}
+\end{table}
+
 
 \begin{table}[H]
 \centering
@@ -198,7 +218,7 @@ In this section, we detail the specific models employed in both the supervised a
 \hline
 all-MiniLM-L6-v2 & 384 & 64 \\
 distilroberta-base-paraphrase-v1 & 768 & 64 \\
-seeds & \multicolumn{2}{c}{2025, 2026, 2027, 2028, 2029} \\
+seeds & \multicolumn{2}{c}{[2025,2029]} \\
 \hline
 \end{tabular}
 \end{table} 
@@ -207,6 +227,23 @@ seeds & \multicolumn{2}{c}{2025, 2026, 2027, 2028, 2029} \\
 \section{Results and Discussion}
 
 \subsection{Supervised Models}
+The following table (Table ~\ref{tab:model_comparison}) summarizes the performance across on the different 
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{llccc}
+        \hline
+        \textbf{Model} & \textbf{Head Type} & \textbf{Mean Accuracy} & \textbf{Mean Macro F1} & \textbf{Avg. Epochs} \\ \hline
+        all-MiniLM-L6-v2 & ANN & 0.7315 & 0.6556 & 20.0 \\ 
+        all-MiniLM-L6-v2 & LogReg & 0.6870 & 0.5928 & N/A \\ 
+        paraphrase-mpnet-base-v2 & ANN & 0.7089 & 0.6249 & 12.4 \\ 
+        paraphrase-mpnet-base-v2 & LogReg & 0.6950 & 0.6083 & N/A \\ 
+        all-mpnet-base-v2 & ANN & 0.7014 & 0.6177 & 13.0 \\ 
+        all-mpnet-base-v2 & LogReg & 0.6760 & 0.5629 & N/A \\ \hline
+    \end{tabular}
+    \caption{Performance Comparison of Embedding Models and Classifiers}
+    \label{tab:model_comparison}
+\end{table}
 
 
 
