@@ -89,7 +89,9 @@ By looking at table ~\ref{tab:dataset_dist}, it's clear that the dataset is imba
 
 \noindent
 \\
-Another issue present is the mislabeling of some samples. After analysing the dataset, we found samples labeled with the wrong emotions. For example, the sentence ``I didn't feel humiliated'' was labeled as \textit{sadness}. The sentence explicitely denies the negative emotion, yet it was labeled with it, presumably due to the presence of the word ``humiliated''. This kind of mislabeling will inevitably cap the performance of any model trained on this dataset, as it introduces noise and confusion during the learning process.
+Another issue present is the mislabeling of some samples. After analysing the dataset, we found samples labeled with the wrong emotions. For example, the sentence ``I didn't feel humiliated'' was labeled as \textit{sadness}. The sentence explicitely denies the negative emotion, yet it was labeled with it, presumably due to the presence of the word ``humiliated''. This kind of mislabeling will inevitably cap the performance of any model trained on this dataset, as it introduces noise and confusion during the learning process. Another possible cause is the fact that dataset relies on th hastags to label the samples, and their use in sarcastic or ironic contexts is a major source of error.
+\noindent
+
 
 \section{Approach of Supervised Classification}
 
@@ -218,9 +220,9 @@ Seeds & [2025, 2029] \\
 \hline
 \textbf{Model} & \textbf{Embedding Dimension} \\
 \hline
-all-MiniLM-L6-v2 & ???  \\
-paraphrase-mpnet-base-v2 & ???? \\
-all-mpnet-base-v2 & ??? \\
+all-MiniLM-L6-v2 & 384 \\
+paraphrase-mpnet-base-v2 & 768 \\
+all-mpnet-base-v2 & 768 \\
 \hline
 \end{tabular}
 \end{table} 
@@ -271,12 +273,12 @@ As described in Section ~\ref{sec:embedding}, the zero-shot classification appro
 \hline
 \textbf{Model Name} & \textbf{Size (parameters)} \\
 \hline
-MoritzLaurer/xtremedistil-l6-h256-zeroshot-v1.1-all-33 & ???M \\
-joeddav/xlm-roberta-large-xnli & ???M \\
-MoritzLaurer/bge-m3-zeroshot-v2.0 & ???M \\
-MoritzLaurer/deberta-v3-xsmall-zeroshot-v1.1-all-33 & ???M \\
-MoritzLaurer/ModernBERT-large-zeroshot-v2.0 & ???M \\
-facebook/bart-large-mnli & ???M \\
+MoritzLaurer/xtremedistil-l6-h256-zeroshot-v1.1-all-33 & $\approx 13$M \\
+joeddav/xlm-roberta-large-xnli & $\approx 600$M \\
+MoritzLaurer/bge-m3-zeroshot-v2.0 & $\approx 600$M \\
+MoritzLaurer/deberta-v3-xsmall-zeroshot-v1.1-all-33 & $\approx 71$M \\
+MoritzLaurer/ModernBERT-large-zeroshot-v2.0 & $\approx 400$M \\
+facebook/bart-large-mnli & $\approx 400$M \\
 \hline
 \end{tabular}
 \end{table}
@@ -292,14 +294,14 @@ The performance of the zero-shot classifier is evaluated on the test set using s
 \section{Results and Discussion}
 
 \subsection{Supervised Models}
-The following table (Table ~\ref{tab:model_comparison}) summarizes the performance across on the different 
+The following table (Table ~\ref{tab:model_comparison}) summarizes the performance across the different embedding models and classifier heads used in the supervised approach. Results are reported as mean accuracy and mean macro F1 score over five different random seeds, along with the average number of epochs taken for training before early stopping.
 
 \begin{table}[h]
     \centering
     \begin{tabular}{llccc}
         \hline
         \textbf{Model} & \textbf{Head Type} & \textbf{Mean Accuracy} & \textbf{Mean Macro F1} & \textbf{Avg. Epochs} \\ \hline
-        all-MiniLM-L6-v2 & ANN & 0.7315 & 0.6556 & 20.0 \\ 
+        all-MiniLM-L6-v2 & ANN & 0.7315 & 0.6556 & 25.0 \\ 
         all-MiniLM-L6-v2 & LogReg & 0.6870 & 0.5928 & N/A \\ 
         paraphrase-mpnet-base-v2 & ANN & 0.7089 & 0.6249 & 12.4 \\ 
         paraphrase-mpnet-base-v2 & LogReg & 0.6950 & 0.6083 & N/A \\ 
@@ -310,14 +312,16 @@ The following table (Table ~\ref{tab:model_comparison}) summarizes the performan
     \label{tab:model_comparison}
 \end{table}
 
+\subsubsection{Classifier Comparison:} The ANN classifier consistently outperforms the Logistic Regression head across all embedding models. Even though this gap is smaller in \texttt{paraphrase-mpnet-base-v2} model, it made a noticeable difference in the other two. This indicates that the non-linear decision boundaries learned by the ANN provide a significant advantage over the linear separability assumed by Logistic Regression, and suggests that the embedding spaces are not linearly separable for the emotion classification task.
 
+\noindent
+\\
+It is also noticeable that apart from the \texttt{all-MiniLM-L6-v2} model which on average used all 25 epochs, early stopping occurred relatively quickly on the rest, within the first 15 epochs. This suggests that is might've been beneficial to train the first model for longer, as the scores were still rising
 
+\subsubsection{Model Comparison:} Among the embedding models evaluated, the highest performance scores were achived by \texttt{all-MiniLM-L6-v2} in both accuracy and macro F1 score, regardless of the classifier head used. However, the performance differences between the embedding models are not substantial, indicating that all three models provide reasonably effective representations for the emotion classification task. The size of the models did also not show much effect on the performance, as the smallest model (with dimension 384) actually performed the best in comparison to the larger ones (with dimension 768).
 
-
-
-
-\subsubsection{NLI Models}
-
+\subsection{NLI Models}
+The following table (Table ~\ref{tab:zero_shot_results}) summarizes the performance of the different NLI models used in the zero-shot classification approach. Results are reported in terms of accuracy and macro F1 score on the test set.
 
 \begin{table}[h]
 \centering
@@ -328,20 +332,17 @@ The following table (Table ~\ref{tab:model_comparison}) summarizes the performan
 \textbf{Model Name} & \textbf{ACC} & \textbf{Macro F1} \\
 \hline
 MoritzLaurer/xtremedistil-l6-h256-zeroshot-v1.1-all-33 & 0.6120 & 0.5148 \\
-
 joeddav/xlm-roberta-large-xnli & 0.3505 & 0.3222 \\
-
 MoritzLaurer/bge-m3-zeroshot-v2.0 & 0.6960 & 0.6232 \\
-
 MoritzLaurer/deberta-v3-xsmall-zeroshot-v1.1-all-33 & 0.7045 & 0.6306 \\
-
 MoritzLaurer/ModernBERT-large-zeroshot-v2.0 & 0.7090 & 0.6304 \\
-
 facebook/bart-large-mnli & 0.4660 & 0.4333 \\
 \hline
 \end{tabular}
 \end{table}
 
+
+\subsubsection{Model Comparison:}
 
 \subsection{Supervised vs Zero-Shot Classification}
 
