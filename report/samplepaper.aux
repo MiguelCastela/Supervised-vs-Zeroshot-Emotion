@@ -3,21 +3,18 @@
 \@writefile{toc}{\authcount {2}}
 \@writefile{toc}{\contentsline {author}{Miguel Castela \and Miguel Martins}{1}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2}Dataset Description}{1}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Class distribution of the \texttt  {dair-ai/emotion} dataset.}}{1}{}\protected@file@percent }
-\newlabel{tab:dataset_dist}{{1}{1}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Foreseeable issues}{1}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Class imbalance}{1}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Overfitting to keywords}{2}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3}Methodology}{2}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Supervised Learning: Feature Extraction}{2}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Embedding Generation.}{2}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Classifier Architecture.}{2}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Training Configuration.}{2}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Zero-Shot Classification}{3}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Model and Prompting.}{3}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces A figure caption is always placed below the illustration. Please note that short captions are centered, while long ones are justified by the macro package automatically.}}{3}{}\protected@file@percent }
-\newlabel{fig1}{{1}{3}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Description of the problem}{1}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Class distribution of the \texttt  {dair-ai/emotion} dataset.}}{2}{}\protected@file@percent }
+\newlabel{tab:dataset_dist}{{1}{2}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Approach and Architecture}{2}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Supervised Classification with Frozen Transformer Embeddings}{2}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Embedding Generation}{2}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Classifier Architecture}{3}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Training Procedure}{3}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Evaluation}{4}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5}Zero-Shot Classification via Natural Language Inference (NLI)}{4}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Classification Process}{4}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Evaluation Metrics}{4}{}\protected@file@percent }
 \citation{ref_article1}
 \citation{ref_lncs1}
 \citation{ref_book1}
@@ -25,11 +22,21 @@
 \citation{ref_url1}
 \citation{ref_article1,ref_lncs1,ref_book1}
 \citation{ref_article1,ref_book1,ref_proc1,ref_url1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.6}Evaluation}{5}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}Experimental Setup}{5}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}sentence-transformers Models}{5}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}Results}{5}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Supervised Models}{5}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{NLI Models}{5}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Supervised vs Zero-Shot Classification}{5}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}NLI Models}{5}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces A figure caption is always placed below the illustration. Please note that short captions are centered, while long ones are justified by the macro package automatically.}}{5}{}\protected@file@percent }
+\newlabel{fig1}{{1}{5}{}{}{}}
 \bibcite{ref_article1}{1}
 \bibcite{ref_lncs1}{2}
 \bibcite{ref_book1}{3}
 \bibcite{ref_proc1}{4}
 \bibcite{ref_url1}{5}
-\@writefile{toc}{\contentsline {subsubsection}{Acknowledgments.}{4}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Disclosure of Interests.}{4}{}\protected@file@percent }
-\gdef \@abspage@last{4}
+\@writefile{toc}{\contentsline {subsubsection}{Acknowledgments.}{6}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Disclosure of Interests.}{6}{}\protected@file@percent }
+\gdef \@abspage@last{6}

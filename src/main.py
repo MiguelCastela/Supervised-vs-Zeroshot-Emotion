@@ -9,39 +9,19 @@ N_SEEDS = 5
 
 
 def part_one():
-    ### Part 1
-    # Parse CLI args
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--use-cached-embeddings", action="store_true", help="Load cached .npy embeddings if available and skip encoding")
-    args, unknown = parser.parse_known_args()
 
-    # 2) Load embedding model (only needed if we compute embeddings)
-    X_train = X_val = X_test = None
-    if args.use_cached_embeddings and all(
-        os.path.exists(p) for p in [
-            "embeddings_train.npy", "embeddings_val.npy", "embeddings_test.npy",
-            "labels_train.npy", "labels_val.npy", "labels_test.npy",
-        ]
-    ):
-        print("Loading cached embeddings from .npy files...")
-        X_train = np.load("embeddings_train.npy")
-        X_val = np.load("embeddings_val.npy")
-        X_test = np.load("embeddings_test.npy")
-        # overwrite labels from cache to ensure consistency
-        y_train = np.load("labels_train.npy")
-        y_val = np.load("labels_val.npy")
-        y_test = np.load("labels_test.npy")
-    else:
-        emb_model = load_embedding_model(MODEL_NAME)
-        # 3) Compute embeddings once and optionally cache
-        X_train, X_val, X_test = compute_embeddings(emb_model, X_train_texts, X_val_texts, X_test_texts)
-        # Optional: save embeddings to reuse across classifier sweeps
-        np.save("embeddings_train.npy", X_train)
-        np.save("embeddings_val.npy", X_val)
-        np.save("embeddings_test.npy", X_test)
-        np.save("labels_train.npy", y_train)
-        np.save("labels_val.npy", y_val)
-        np.save("labels_test.npy", y_test)
+    emb_model = load_embedding_model(MODEL_NAME)
+
+
+
+    X_train, X_val, X_test = compute_embeddings(emb_model, X_train_texts, X_val_texts, X_test_texts)
+
+    np.save("embeddings_train.npy", X_train)
+    np.save("embeddings_val.npy", X_val)
+    np.save("embeddings_test.npy", X_test)
+    np.save("labels_train.npy", y_train)
+    np.save("labels_val.npy", y_val)
+    np.save("labels_test.npy", y_test)
 
     input_dim = X_train.shape[1]
 
@@ -102,7 +82,7 @@ def part_one():
 def part_two():
     """Run NLI zero-shot classification (current `NLI.py` main) from main.py."""
     # Using DeBERTa v3 large zero-shot model
-    model_name = "MoritzLaurer/bge-m3-zeroshot-v2.0"
+    model_name = "joeddav/xlm-roberta-large-xnli"
     acc_nli, f1_nli, cm_nli, _ = run_nli_part_two(model_name=model_name)
     print("\n========== Part 2: NLI (Zero-Shot) ==========")
     print(f"Model: {model_name}")

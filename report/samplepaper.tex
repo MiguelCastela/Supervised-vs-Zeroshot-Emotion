@@ -22,6 +22,7 @@
 
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{float}
 \begin{document}
 %
 \title{Emotional Models: Supervised vs. Zero-Shot Classification}
@@ -46,13 +47,21 @@ Miguel Martins\inst{2}}
 %
 \section{Introduction}
 
-This project explores two distinct approaches to emotion classification in text using Transformer-based models: supervised learning with feature extraction and zero-shot classification via Natural Language Inference (NLI). 
+This project presents the implementation and evaluation of two distinct approaches to emotion classification in text using Transformer-based models applied to the \textit{Emotion} dataset. The Emotion dataset, available on the HuggingFace Hub under the identifier \texttt{dair-ai/emotion}, consists of short English text samples primarily collected from social media platforms.
 
-\section{Dataset Description}
+\noindent
+\\
+The dataset is pre-split into training, validation, and test sets. The main objective of this project is to compare the performance of two different methodologies for emotion classification. The main objective of this project is to compare the performance of two different methodologies for emotion classification. The first approach follows a supervised learning paradigm, where pretrained Transformer models are used as frozen feature extractors to generate sentence embeddings via models from the \texttt{sentence-transformers} library. The second approach adopts a zero-shot learning strategy based on Natural Language Inference (NLI) models, where emotion labels are expressed as natural language hypotheses and classification is performed without task-specific fine-tuning. By evaluating both supervised and zero-shot methods on the same dataset, this project aims to analyze their respective strengths and limitations, as well as characteristic error patterns.
 
-The dataset utilized in this project is the \texttt{dair-ai/emotion} dataset. It consists of text samples, primarily collected from Twitter, labeled with one of six emotions: \textit{joy, sadness, anger, fear, love} and \textit{surprise}. The dataset is split into training, validation, and test sets, with the training set containing 16,000 samples, the validation set 2,000 samples, and the test set 2,000 samples. The samples are distributed according to the following table:
+\noindent
+\\
+Additionally, the impact of different pretrained models from the HuggingFace Hub is explored, assessing how variations in model size, architecture, and training objectives affect classification performance.
 
-\begin{table}[h]
+\section{Description of the problem}
+
+The \texttt{dair-ai/emotion} dataset consists of text samples, primarily collected from Twitter, labeled with one of six emotions: \textit{joy, sadness, anger, fear, love} and \textit{surprise}.The training set containing 16,000 samples, the validation set 2,000 samples, and the test set 2,000 samples. The samples are distributed according to the following table:
+
+\begin{table}[H]
 \centering
 \caption{Class distribution of the \texttt{dair-ai/emotion} dataset.}
 \label{tab:dataset_dist}
@@ -73,52 +82,127 @@ Surprise & 572   & 81  & 66  & 3.6\% \\
 \end{table}
 
 
-\subsection{Foreseeable issues}
-\subsubsection{Class imbalance}
-By looking at table~\ref{tab:dataset_dist}, we can see that the dataset is imbalanced, with the \textit{joy} and \textit{sadness} classes being significantly more represented, together accounting for over 60\% of the data, and \textit{surprise} being the least represented by a considerable margin, 3.6\%. This imbalance could lead to biased model performance, favoring the majority classes, and already gives away that ``Accuracy'' might not be the best metric to evaluate the models.
-\subsubsection{Overfitting to keywords}
+\noindent
+\\
+By looking at table ~\ref{tab:dataset_dist}, it's clear that the dataset is imbalanced, with the \textit{joy} and \textit{sadness} classes being significantly more represented, together accounting for over 60\% of the data. In contrast, the \textit{surprise} class is the least represented by a considerable margin, 3.6\%. This imbalance could lead to biased model performance, favoring the majority classes, and already gives away that ``Accuracy'' might not be the best metric to evaluate the models.
+
+
+\noindent
+\\
 Another issue present is the overfitting of words or terms to a certain emotion. For example, the word ``happy'' is strongly associated with the \textit{joy} class, and its presence in a text sample could lead the model to predict \textit{joy} regardless of the overall context One example of this is [por exemplo...].
 
-\section{Methodology}
+\section{Approach and Architecture}
+\subsection{Supervised Classification with Frozen Transformer Embeddings}
 
-To address the problem of emotion classification, we implemented two distinct pipelines: a supervised learning approach using frozen Transformer embeddings and a zero-shot inference approach using a Natural Language Inference (NLI) model. All experiments were conducted using the \texttt{dair-ai/emotion} dataset.
+This approach follows a supervised learning paradigm in which pretrained Transformer models are used as fixed feature extractors, and a lightweight neural classifier is trained on top of the resulting sentence embeddings. The model leverages their pretrained semantic representations to reduce computational cost and mitigate overfitting, while still capturing rich contextual information from the input text.
 
-\subsection{Supervised Learning: Feature Extraction}
+\noindent
+\\
+The Emotion dataset is loaded using the HuggingFace \texttt{datasets} library and split into the training, validation, and test sets. To convert raw text into numerical representations suitable for classification, a pretrained sentence-level Transformer from the \texttt{sentence-transformers} library is employed.
 
-In this approach, we leveraged a pre-trained Transformer to generate fixed semantic representations of the input text, which were then fed into a custom Artificial Neural Network (ANN) classifier.
 
-\subsubsection{Embedding Generation.}
-We utilized the \texttt{sentence-transformers/all-MiniLM-L6-v2} model as our backbone. This model was chosen for its balance between performance and computational efficiency. We processed the raw text from the train, validation, and test splits to generate dense vector embeddings. The backbone weights remained frozen during this process, serving purely as a static feature extractor.
 
-\subsubsection{Classifier Architecture.}
-On top of the generated embeddings, we trained a non-linear classifier (Multi-Layer Perceptron). The architecture, defined in our \texttt{ANNClassifier} module, consists of:
+\subsection{Embedding Generation}
+
+\noindent
+\\
+Specifically, the models \texttt{all-MiniLM-L6-v2} and \texttt{distilroberta-base-paraphrase-v1} are used to encode each sentence into a dense, fixed-length embedding vector. The embedding process is performed in batches of 64 samples to improve efficiency, and the resulting representations are stored as NumPy arrays for the training, validation, and test sets. The Transformer remains frozen during this stage, meaning that no gradient updates are applied to its parameters.
+
+\noindent
+\\
+These embeddings serve as high-level semantic features that capture syntactic and contextual information from the input text. The corresponding emotion labels are retained as integer class indices, resulting in pairs of the form \textit{(embedding, label)}, which are later wrapped into PyTorch \texttt{DataLoader} objects for mini-batch training and evaluation.
+
+\noindent
+\\
+
+\subsubsection{Classifier Architecture}
+
+\noindent
+\\
+On top of the generated embeddings, we trained a non-linear classifier (Multi-Layer Perceptron).The classification head is implemented as a shallow Artificial Neural Network (ANN), equivalent to a small Multi-Layer Perceptron. Its architecture is intentionally lightweight, as the main representational power is delegated to the pretrained Transformer embeddings.  The architecture, defined in our \texttt{ANNClassifier} module, consists of:
 \begin{itemize}
     \item \textbf{Input Layer:} Matches the dimension of the embeddings (384 dimensions for MiniLM).
-    \item \textbf{Hidden Layer:} A fully connected layer with 256 neurons, followed by a Rectified Linear Unit (ReLU) activation function.
+    \item \textbf{Hidden Layer:} A fully connected layer with 256 neurons, followed by a Rectified Linear Unit (ReLU) activation function, introducing non-linearity into the model.
     \item \textbf{Regularization:} A Dropout layer with a probability of $p=0.1$ to prevent overfitting.
-    \item \textbf{Output Layer:} A final fully connected layer mapping to the 6 emotion classes.
+    \item \textbf{Output Layer:} A fully connected layer with six neurons, one for each emotion class, producing unnormalized logits.
 \end{itemize}
 
-\subsubsection{Training Configuration.}
-The model was trained using the Adam optimizer with a learning rate of $1e-3$ and Cross-Entropy Loss. To ensure robust evaluation, we employed the following training protocol:
+\noindent
+\\
+Class predictions are obtained by applying the \texttt{argmax} operation over the output logits, selecting the emotion class with the highest predicted score.
+
+\subsection{Training Procedure}
+
+\noindent
+\\
+The classifier is trained using the Adam optimizer with a learning rate of $10^{-3}$ and the Cross-Entropy loss function, which is standard for multi-class classification tasks. Training is performed using mini-batch gradient descent, where the embedding--label pairs are processed in batches rather than as a whole. This improves computational efficiency and introduces beneficial stochasticity into the optimization process.
+
+\noindent
+\\
+To prevent overfitting and ensure robust model selection, early stopping is employed based on the macro-averaged F1 score computed on the validation set. Training is halted if no improvement in validation F1 is observed for a fixed number of consecutive epochs, and the best-performing model state is restored before final evaluation.
+
+\subsection{Evaluation}
+
+\noindent
+\\
+After training, the selected model is evaluated on the held-out test set. Performance is measured using accuracy, macro-averaged F1 score, and confusion matrices. To account for randomness introduced by weight initialization and data shuffling, experiments are repeated across multiple random seeds, and results are reported as mean values with corresponding standard deviations. This evaluation protocol enables a fair and reliable assessment of the supervised approach based on frozen Transformer embeddings.
+
+
+\subsection{Zero-Shot Classification via Natural Language Inference (NLI)}
+
+The zero-shot classification approach leverages pre-trained Natural Language Inference (NLI) models to classify text without specific task-related training data. NLI models are trained to determine the relationship (entailment, contradiction, or neutral) between a premise and a hypothesis. 
+
 \begin{itemize}
-    \item \textbf{Batch Size:} 64 samples.
-    \item \textbf{Early Stopping:} We monitored the Macro-F1 score on the validation set, stopping training if no improvement was observed after 3 consecutive epochs (patience=3).
-    \item \textbf{Reproducibility:} The training and evaluation were repeated across 5 distinct random seeds (starting from seed 2025) to account for initialization variance. We report the mean and standard deviation for all supervised metrics.
+    \item \textbf{Hypothesis Template:} The zero-shot classification task requires formulating the candidate label into a structured hypothesis sentence. The chosen template is \textbf{\texttt{"This text expresses {}."}} (\texttt{NLI.py}).
 \end{itemize}
 
-\subsection{Zero-Shot Classification}
+\subsubsection{Classification Process}
 
-The second approach reformulates the classification task as a Natural Language Inference (NLI) problem, requiring no supervised training on the emotion dataset.
+\begin{enumerate}
+    \item \textbf{Pipeline Initialization:} A \texttt{transformers} pipeline for \texttt{"zero-shot-classification"} is initialized with the chosen NLI model and automatically placed on the available device.
+    \item \textbf{Batch Inference:} The test texts are processed in batches of 32 for computational efficiency.
+    \item \textbf{Prediction:} For each text, the model compares the text (premise) against a hypothesis for every candidate label.
+    \item \textbf{Label Selection:} The label whose hypothesis yields the highest entailment score is selected as the predicted class for the input text.
+\end{enumerate}
 
-\subsubsection{Model and Prompting.}
-We employed the \texttt{MoritzLaurer/bge-m3-zeroshot-v2.0} model. For each input text, we constructed hypotheses using the template:
-\begin{center}
-    \textit{"This text expresses \{\}."}
-\end{center}
-where the placeholder is filled with each of the candidate labels (anger, fear, joy, love, sadness, surprise). The model computes the entailment probability for each hypothesis, and the label with the highest probability is selected as the prediction. Unlike the supervised pipeline, this method was applied directly to the test set without any parameter updates.
+\subsubsection{Evaluation Metrics}
+
+\noindent
+\\
+The performance of the zero-shot classifier is evaluated on the test set using standard classification metrics:
+
+\noindent
+\\  
+Unlike the supervised pipeline, this method was applied directly to the test set without any parameter updates.
+
+\subsection{Evaluation}
+
+\noindent
+\\
+After obtaining predictions for the test set, the model's performance is assessed using accuracy, macro-averaged F1 score, and confusion matrices. Similar to the supervised approach, experiments are repeated across multiple random seeds to ensure robustness, and results are reported as mean values with standard deviations. This evaluation framework allows for a comprehensive comparison between the zero-shot NLI-based method and the supervised classification approach using frozen Transformer embeddings.
 
 
+\section{Experimental Setup}
+
+\subsection{sentence-transformers Models}
+
+\section{Results}
+
+\subsection{Supervised Models}
+
+\subsubsection{NLI Models}
+
+\subsection{Supervised vs Zero-Shot Classification}
+
+
+
+
+
+
+
+
+
+\subsection{NLI Models}
 
 \begin{figure}
 \includegraphics[width=\textwidth]{fig1.eps}

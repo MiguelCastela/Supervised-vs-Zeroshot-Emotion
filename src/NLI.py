@@ -50,7 +50,7 @@ def run_zero_shot(texts, labels, model_name="facebook/bart-large-mnli", batch_si
             
     return preds
 
-def part_two(model_name: str = "facebook/bart-large-mnli", template: str = "This text expresses {}."):
+def part_two(model_name: str = "MoritzLaurer/xtremedistil-l6-h256-zeroshot-v1.1-all-33", template: str = "This text expresses {}."):
     set_seed(SEED)
 
     print("Loading dataset...")
