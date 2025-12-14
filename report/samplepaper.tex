@@ -76,17 +76,12 @@ Surprise & 572   & 81  & 66  & 3.6\% \\
 \subsection{Foreseeable issues}
 \subsubsection{Class imbalance}
 By looking at table~\ref{tab:dataset_dist}, we can see that the dataset is imbalanced, with the \textit{joy} and \textit{sadness} classes being significantly more represented, together accounting for over 60\% of the data, and \textit{surprise} being the least represented by a considerable margin, 3.6\%. This imbalance could lead to biased model performance, favoring the majority classes, and already gives away that ``Accuracy'' might not be the best metric to evaluate the models.
+\subsubsection{Overfitting to keywords}
+Another issue present is the overfitting of words or terms to a certain emotion. For example, the word ``happy'' is strongly associated with the \textit{joy} class, and its presence in a text sample could lead the model to predict \textit{joy} regardless of the overall context One example of this is [por exemplo...].
+
+\section{Methodology}
 
 
-
-\noindent Displayed equations are centered and set on a separate
-line.
-\begin{equation}
-x + y = z
-\end{equation}
-Please try to avoid rasterized images for line-art diagrams and
-schemas. Whenever possible, use vector graphics instead (see
-Fig.~\ref{fig1}).
 
 \begin{figure}
 \includegraphics[width=\textwidth]{fig1.eps}

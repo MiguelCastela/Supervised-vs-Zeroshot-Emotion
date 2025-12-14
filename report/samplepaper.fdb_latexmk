@@ -1,7 +1,7 @@
 # Fdb version 4
-["pdflatex"] 1765663235.69009 "/home/ozzy/Desktop/mei/1ºano/1ºsemestre/APR/DL-EmotionalModels/report/samplepaper.tex" "samplepaper.pdf" "samplepaper" 1765663236.32418 0
+["pdflatex"] 1765665785.8434 "/home/ozzy/Desktop/mei/1ºano/1ºsemestre/APR/DL-EmotionalModels/report/samplepaper.tex" "samplepaper.pdf" "samplepaper" 1765665786.43798 0
   "/etc/texmf/web2c/texmf.cnf" 1733336306.12301 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/ozzy/Desktop/mei/1ºano/1ºsemestre/APR/DL-EmotionalModels/report/samplepaper.tex" 1765663235.4681 6796 3c5c5eec5c12abacf3018c37418bf6ab ""
+  "/home/ozzy/Desktop/mei/1ºano/1ºsemestre/APR/DL-EmotionalModels/report/samplepaper.tex" 1765665784.67077 6921 5aa5cbba3a54114290bd37047c48d387 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecbx0900.tfm" 1136768653 3584 1a7de6c99457381c64abc1a7c545505f ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecbx1000.tfm" 1136768653 3584 2d666ecf6d466d8b007246bc2f94d9da ""
@@ -29,8 +29,6 @@
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmr9.tfm" 1136768653 1292 6b21b9c2c7bebb38aa2273f7ca0fb3af ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm" 1136768653 1116 933a60c408fc0a863a92debe84b2d294 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmsy9.tfm" 1136768653 1116 25a7bf822c58caf309a702ef79f4afbb ""
-  "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb" 1248133631 36299 5f9df58c2139e7edcf37c8fca4bd384d ""
-  "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1248133631 35752 024fb6c41858982481f6968b5fc26508 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb" 1248133631 32762 224316ccc9ad3ca0423a14971cfa7fc1 ""
   "/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii" 1461363279 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty" 1359763108 5949 3f3fd50a8cc94c3d4cbf4fc66cd3df1c ""
@@ -74,8 +72,8 @@
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1745943951 8213120 d5da6b8c983a423033010a23a28ab577 ""
   "fig1.eps" 1765654979.29268 357553 784a1d3035e9550a463f314c33bb157f ""
   "llncs.cls" 1765654916.3653 43402 5fb5a2dc40571aa40f3d199c00cbb986 ""
-  "samplepaper.aux" 1765663236.21514 1737 964e46b0d842be95ab5a822cf8703417 "pdflatex"
-  "samplepaper.tex" 1765663235.4681 6796 3c5c5eec5c12abacf3018c37418bf6ab ""
+  "samplepaper.aux" 1765665786.34282 1938 b403dd9e52217abbaba36c4cf1599d97 "pdflatex"
+  "samplepaper.tex" 1765665784.67077 6921 5aa5cbba3a54114290bd37047c48d387 ""
   (generated)
   "samplepaper.aux"
   "samplepaper.log"
