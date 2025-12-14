@@ -81,6 +81,43 @@ Another issue present is the overfitting of words or terms to a certain emotion.
 
 \section{Methodology}
 
+To address the problem of emotion classification, we implemented two distinct pipelines: a supervised learning approach using frozen Transformer embeddings and a zero-shot inference approach using a Natural Language Inference (NLI) model. All experiments were conducted using the \texttt{dair-ai/emotion} dataset.
+
+\subsection{Supervised Learning: Feature Extraction}
+
+In this approach, we leveraged a pre-trained Transformer to generate fixed semantic representations of the input text, which were then fed into a custom Artificial Neural Network (ANN) classifier.
+
+\subsubsection{Embedding Generation.}
+We utilized the \texttt{sentence-transformers/all-MiniLM-L6-v2} model as our backbone. This model was chosen for its balance between performance and computational efficiency. We processed the raw text from the train, validation, and test splits to generate dense vector embeddings. The backbone weights remained frozen during this process, serving purely as a static feature extractor.
+
+\subsubsection{Classifier Architecture.}
+On top of the generated embeddings, we trained a non-linear classifier (Multi-Layer Perceptron). The architecture, defined in our \texttt{ANNClassifier} module, consists of:
+\begin{itemize}
+    \item \textbf{Input Layer:} Matches the dimension of the embeddings (384 dimensions for MiniLM).
+    \item \textbf{Hidden Layer:} A fully connected layer with 256 neurons, followed by a Rectified Linear Unit (ReLU) activation function.
+    \item \textbf{Regularization:} A Dropout layer with a probability of $p=0.1$ to prevent overfitting.
+    \item \textbf{Output Layer:} A final fully connected layer mapping to the 6 emotion classes.
+\end{itemize}
+
+\subsubsection{Training Configuration.}
+The model was trained using the Adam optimizer with a learning rate of $1e-3$ and Cross-Entropy Loss. To ensure robust evaluation, we employed the following training protocol:
+\begin{itemize}
+    \item \textbf{Batch Size:} 64 samples.
+    \item \textbf{Early Stopping:} We monitored the Macro-F1 score on the validation set, stopping training if no improvement was observed after 3 consecutive epochs (patience=3).
+    \item \textbf{Reproducibility:} The training and evaluation were repeated across 5 distinct random seeds (starting from seed 2025) to account for initialization variance. We report the mean and standard deviation for all supervised metrics.
+\end{itemize}
+
+\subsection{Zero-Shot Classification}
+
+The second approach reformulates the classification task as a Natural Language Inference (NLI) problem, requiring no supervised training on the emotion dataset.
+
+\subsubsection{Model and Prompting.}
+We employed the \texttt{MoritzLaurer/bge-m3-zeroshot-v2.0} model. For each input text, we constructed hypotheses using the template:
+\begin{center}
+    \textit{"This text expresses \{\}."}
+\end{center}
+where the placeholder is filled with each of the candidate labels (anger, fear, joy, love, sadness, surprise). The model computes the entailment probability for each hypothesis, and the label with the highest probability is selected as the prediction. Unlike the supervised pipeline, this method was applied directly to the test set without any parameter updates.
+
 
 
 \begin{figure}
