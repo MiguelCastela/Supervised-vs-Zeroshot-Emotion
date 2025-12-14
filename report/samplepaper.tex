@@ -300,13 +300,14 @@ The following table (Table ~\ref{tab:model_comparison}) summarizes the performan
     \centering
     \begin{tabular}{llccc}
         \hline
-        \textbf{Model} & \textbf{Head Type} & \textbf{Mean Accuracy} & \textbf{Mean Macro F1} & \textbf{Avg. Epochs} \\ \hline
-        all-MiniLM-L6-v2 & ANN & 0.7315 & 0.6556 & 25.0 \\ 
-        all-MiniLM-L6-v2 & LogReg & 0.6870 & 0.5928 & N/A \\ 
-        paraphrase-mpnet-base-v2 & ANN & 0.7089 & 0.6249 & 12.4 \\ 
-        paraphrase-mpnet-base-v2 & LogReg & 0.6950 & 0.6083 & N/A \\ 
-        all-mpnet-base-v2 & ANN & 0.7014 & 0.6177 & 13.0 \\ 
-        all-mpnet-base-v2 & LogReg & 0.6760 & 0.5629 & N/A \\ \hline
+        \textbf{Model} & \textbf{Head} & \textbf{Accuracy} & \textbf{Macro F1} & \textbf{Avg. Epochs} \\ \hline
+        all-MiniLM-L6-v2 & ANN & $0.7315 \pm 0.0061$ & $0.6556 \pm 0.0057$ & 20.0 \\ 
+        all-MiniLM-L6-v2 & LogReg & $0.6870 \pm 0.0000$ & $0.5928 \pm 0.0000$ & N/A \\ 
+        paraphrase-mpnet-base-v2 & ANN & $0.7089 \pm 0.0037$ & $0.6249 \pm 0.0091$ & 12.4 \\ 
+        paraphrase-mpnet-base-v2 & LogReg & $0.6950 \pm 0.0000$ & $0.6083 \pm 0.0000$ & N/A \\ 
+        all-mpnet-base-v2 & ANN & $0.7014 \pm 0.0019$ & $0.6177 \pm 0.0059$ & 13.0 \\ 
+        all-mpnet-base-v2 & LogReg & $0.6760 \pm 0.0000$ & $0.5629 \pm 0.0000$ & N/A \\ 
+        \hline
     \end{tabular}
     \caption{Performance Comparison of Embedding Models and Classifiers}
     \label{tab:model_comparison}
@@ -342,7 +343,16 @@ facebook/bart-large-mnli & 0.4660 & 0.4333 \\
 \end{table}
 
 
-\subsubsection{Model Comparison:}
+\subsubsection{Model Comparison:} The results indicate significant variability in performance across the different NLI models. The model that achieved the highest macro F1 score of 0.6304 was \texttt{MoritzLaurer/ModernBERT-large-zeroshot-v2.0}, closely followed by \texttt{MoritzLaurer/deberta-v3-xsmall-zeroshot-v1.1-all-33} with a macro F1 of 0.6306. The worst performing model achieved a macro F1 score of only 0.3222 and was \texttt{joeddav/xlm-roberta-large-xnli}.
+\noindent
+\\
+Interestingly, model size did not correlate strongly with model performance. For example, \texttt{MoritzLaurer/deberta-v3-xsmall-zeroshot-v1.1-all-33}, which is relatively small, with $\approx 71$M parameters, outperformed the largest models such as \texttt{joeddav/xlm-roberta-large-xnli} with $\approx 600$M parameters. Models with similar sizes also exhibited varying performance, like \texttt{facebook/bart-large-mnli} and \texttt{MoritzLaurer/ModernBERT-large-zeroshot-v2.0}, both around $\approx 400$M parameters.
+\noindent
+\\
+This discrepancy is due to a different reason: what each model was taught during pretraining. Taking \texttt{joeddav/xlm-roberta-large-xnli} and \texttt{deberta} as examples. On the one hand, \texttt{xlm-roberta} was trained in a multilingual setting, which makes it less specialized in English tasks, and on standard NLI datasets, focusing on logic reasoning. On the other hand, \texttt{deberta} was trained in a monolingual setting, specifically for zero-shot classification tasks, and its training included emotion detection, sentiment, and topic classification, which is far more relevant to our task. This proved to be a major factor when it came to performance and that, given a different task, the results could be completely different.
+\noindent
+\\
+This difference could also be attributed to the architecture of each model, as some may already have an outdated architecture that doesn't perform as well as more recent ones. For example, \texttt{facebook/bart-large-mnli} is based on the BART architecture, which, while powerful, has been surpassed by newer architectures like DeBERTa and ModernBERT in various NLP tasks.
 
 \subsection{Supervised vs Zero-Shot Classification}
 
