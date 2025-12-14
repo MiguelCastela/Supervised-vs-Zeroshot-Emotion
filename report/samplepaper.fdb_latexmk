@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1765729353.49717 "/home/castela/Documents/GitHub/DL-EmotionalModels/report/samplepaper.tex" "samplepaper.pdf" "samplepaper" 1765729353.82803 0
+["pdflatex"] 1765733754.36791 "/home/castela/Documents/GitHub/DL-EmotionalModels/report/samplepaper.tex" "samplepaper.pdf" "samplepaper" 1765733754.71266 0
   "/etc/texmf/web2c/texmf.cnf" 1733106275.85044 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/castela/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx0900.600pk" 1765676478.53688 22480 13d05df3f53e2e66e419cf8a42d64446 ""
   "/home/castela/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1000.600pk" 1765676478.01987 25396 9c145164332d486647b918664b081284 ""
@@ -11,7 +11,7 @@
   "/home/castela/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1000.600pk" 1765676479.0259 31872 b9d403d22f62048c180c1cf7d3cb1954 ""
   "/home/castela/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt0900.600pk" 1765676480.52394 17492 99a31b891d4c94341bfdfb0493735e14 ""
   "/home/castela/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1000.600pk" 1765676479.60791 20008 3c5837b3544f3d7f9beb3adaa2b052e2 ""
-  "/home/castela/Documents/GitHub/DL-EmotionalModels/report/samplepaper.tex" 1765729353.22261 18104 5230d19d03585711f7efd3e6900fcb71 ""
+  "/home/castela/Documents/GitHub/DL-EmotionalModels/report/samplepaper.tex" 1765733754.12082 20810 221a654ff5f4f389fc49364e5f9a82fe ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecbx0900.tfm" 1136768653 3584 1a7de6c99457381c64abc1a7c545505f ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecbx1000.tfm" 1136768653 3584 2d666ecf6d466d8b007246bc2f94d9da ""
@@ -45,7 +45,6 @@
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb" 1248133631 32762 224316ccc9ad3ca0423a14971cfa7fc1 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb" 1248133631 33993 9b89b85fd2d9df0482bd47194d1d3bf3 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb" 1248133631 32587 1788b0c1c5b39540c96f5e42ccd6dae8 ""
-  "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb" 1248133631 32716 08e384dc442464e7285e891af9f45947 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb" 1248133631 32442 c975af247b6702f7ca0c299af3616b80 ""
   "/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii" 1461363279 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty" 1359763108 5949 3f3fd50a8cc94c3d4cbf4fc66cd3df1c ""
@@ -79,8 +78,8 @@
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1733922934 6800790 4f44c5be00cf6bb5c5639010e479b2cb ""
   "fig1.eps" 1765659640.68472 357553 784a1d3035e9550a463f314c33bb157f ""
   "llncs.cls" 1765659640.68572 43402 5fb5a2dc40571aa40f3d199c00cbb986 ""
-  "samplepaper.aux" 1765729353.74933 4261 7165d76f9d2b72075506d433195b1ae1 "pdflatex"
-  "samplepaper.tex" 1765729353.22261 18104 5230d19d03585711f7efd3e6900fcb71 ""
+  "samplepaper.aux" 1765733754.62706 4701 e515ae84e38ccaafd110d43c5181b6b3 "pdflatex"
+  "samplepaper.tex" 1765733754.12082 20810 221a654ff5f4f389fc49364e5f9a82fe ""
   (generated)
   "samplepaper.aux"
   "samplepaper.log"
