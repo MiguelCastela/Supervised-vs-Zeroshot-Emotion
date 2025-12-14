@@ -1,7 +1,7 @@
 # Fdb version 4
-["pdflatex"] 1765755863.00175 "/home/ozzy/Desktop/mei/1ºano/1ºsemestre/APR/DL-EmotionalModels/report/samplepaper.tex" "samplepaper.pdf" "samplepaper" 1765755864.32162 0
+["pdflatex"] 1765756067.45326 "/home/ozzy/Desktop/mei/1ºano/1ºsemestre/APR/DL-EmotionalModels/report/samplepaper.tex" "samplepaper.pdf" "samplepaper" 1765756068.23419 0
   "/etc/texmf/web2c/texmf.cnf" 1733336306.12301 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/ozzy/Desktop/mei/1ºano/1ºsemestre/APR/DL-EmotionalModels/report/samplepaper.tex" 1765755861.71778 26682 1c7faba011dbfd22b7431373684a5317 ""
+  "/home/ozzy/Desktop/mei/1ºano/1ºsemestre/APR/DL-EmotionalModels/report/samplepaper.tex" 1765756067.2215 26695 823048198ca8bec0f776ced9188a4e98 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecbx0900.tfm" 1136768653 3584 1a7de6c99457381c64abc1a7c545505f ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecbx1000.tfm" 1136768653 3584 2d666ecf6d466d8b007246bc2f94d9da ""
@@ -93,8 +93,8 @@
   "cov_values_NLI.png" 1765753630.07439 51531 57620013911b017b961eaa313a69db4f ""
   "cov_values_supervised.png" 1765753630.07539 77705 d34ab09373017450a26baf1e3ef68b8c ""
   "llncs.cls" 1765654916.3653 43402 5fb5a2dc40571aa40f3d199c00cbb986 ""
-  "samplepaper.aux" 1765755864.17296 4235 e28fa82dcb11e06561255346cfdf7e8e "pdflatex"
-  "samplepaper.tex" 1765755861.71778 26682 1c7faba011dbfd22b7431373684a5317 ""
+  "samplepaper.aux" 1765756068.13551 4235 e28fa82dcb11e06561255346cfdf7e8e "pdflatex"
+  "samplepaper.tex" 1765756067.2215 26695 823048198ca8bec0f776ced9188a4e98 ""
   (generated)
   "samplepaper.aux"
   "samplepaper.log"
