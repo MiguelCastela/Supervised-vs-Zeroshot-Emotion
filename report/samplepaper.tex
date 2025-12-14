@@ -79,7 +79,10 @@ Surprise & 572   & 81  & 66  & 3.6\% \\
 \vspace{-2em}
 \noindent
 \\
-By looking at table~\ref{tab:dataset_dist}, it's clear that the dataset is imbalanced with the \textit{joy} and \textit{sadness} classes being significantly more represented. Together, they account for over 60\% of the data. In contrast, the \textit{surprise} class is the least represented by a considerable margin, 3.6\%. This imbalance could lead to biased model performance, favoring the majority classes, and makes it clear that F1 score is a more appropriate metric than accuracy for evaluating model performance on this dataset. Another issue present is the mislabeling of some samples. After analysing the dataset, we found samples labeled with the wrong emotions. For example, the sentence ``I didn't feel humiliated'' was labeled as \textit{sadness}. The sentence explicitly denies the negative emotion, yet it was labeled with it, presumably due to the presence of the word ``humiliated''. This kind of mislabeling will inevitably cap the performance of any model trained on this dataset, as it introduces noise and confusion during the learning process. Another possible cause is the fact that dataset relies on hashtags to label the samples, and their use in sarcastic or ironic contexts is a major source of error.
+By looking at table~\ref{tab:dataset_dist}, it's clear that the dataset is imbalanced with the \textit{joy} and \textit{sadness} classes being significantly more represented. Together, they account for over 60\% of the data. In contrast, the \textit{surprise} class is the least represented by a considerable margin, 3.6\%. This imbalance could lead to biased model performance, favoring the majority classes, and makes it clear that F1 score is a more appropriate metric than accuracy for evaluating model performance on this dataset. 
+\noindent
+\\
+Another issue present is the mislabeling of some samples. After analysing the dataset, we found samples labeled with the wrong emotions. For example, the sentence ``I didn't feel humiliated'' was labeled as \textit{sadness}. The sentence explicitly denies the negative emotion, yet it was labeled with it, presumably due to the presence of the word ``humiliated''. This kind of mislabeling will inevitably cap the performance of any model trained on this dataset, as it introduces noise and confusion during the learning process. This kind of misclassification is something that is clear to a human, and lack of context hindered the classification. Another possible cause is the fact that dataset relies on hashtags to label the samples, and their use in sarcastic or ironic contexts is a major source of error.
 \noindent
 
 
@@ -203,12 +206,12 @@ As described in Section ~\ref{sec:embedding}, the zero-shot classification appro
 \hline
 \textbf{Model Name} & \textbf{Size (parameters)} \\
 \hline
-MoritzLaurer/xtremedistil-l6-h256-zeroshot-v1.1-all-33 & $\approx 13$M \\
-joeddav/xlm-roberta-large-xnli & $\approx 600$M \\
-MoritzLaurer/bge-m3-zeroshot-v2.0 & $\approx 600$M \\
-MoritzLaurer/deberta-v3-xsmall-zeroshot-v1.1-all-33 & $\approx 71$M \\
-MoritzLaurer/ModernBERT-large-zeroshot-v2.0 & $\approx 400$M \\
-facebook/bart-large-mnli & $\approx 400$M \\
+MoritzLaurer/xtremedistil-l6-h256-zeroshot-v1.1-all-33 & $\approx 13{M}$ \\
+joeddav/xlm-roberta-large-xnli & $\approx 600{M}$ \\
+MoritzLaurer/bge-m3-zeroshot-v2.0 & $\approx 600{M}$ \\
+MoritzLaurer/deberta-v3-xsmall-zeroshot-v1.1-all-33 & $\approx 71{M}$ \\
+MoritzLaurer/ModernBERT-large-zeroshot-v2.0 & $\approx 400{M}$ \\
+facebook/bart-large-mnli & $\approx 400{M}$ \\
 \hline
 \end{tabular}
 \end{table}
@@ -225,7 +228,7 @@ The following Table~\ref{tab:model_comparison} summarizes the performance across
     \begin{tabular}{llccc}
         \hline
         \textbf{Model} & \textbf{Head} & \textbf{Accuracy} & \textbf{Macro F1} & \textbf{Avg. Epochs} \\ \hline
-        all-MiniLM-L6-v2 & ANN & $0.7315 \pm 0.0061$ & $0.6556 \pm 0.0057$ & 20.0 \\ 
+        all-MiniLM-L6-v2 & ANN & $0.7315 \pm 0.0061$ & $0.6556 \pm 0.0057$ & 24.8 \\ 
         all-MiniLM-L6-v2 & LogReg & $0.6870 \pm 0.0000$ & $0.5928 \pm 0.0000$ & N/A \\ 
         paraphrase-mpnet-base-v2 & ANN & $0.7089 \pm 0.0037$ & $0.6249 \pm 0.0091$ & 12.4 \\ 
         paraphrase-mpnet-base-v2 & LogReg & $0.6950 \pm 0.0000$ & $0.6083 \pm 0.0000$ & N/A \\ 
@@ -238,7 +241,7 @@ The following Table~\ref{tab:model_comparison} summarizes the performance across
 \end{table}
 
 \noindent
-The ANN classifier consistently outperforms the Logistic Regression head across all embedding models. Even though this gap is smaller in \texttt{paraphrase-mpnet-base-v2} model, it made a noticeable difference in the other two. This indicates that the non-linear decision boundaries learned by the ANN provide a significant advantage over the linear separability assumed by Logistic Regression, and suggests that the embedding spaces are not linearly separable for the emotion classification task. It is also noticeable that apart from the \texttt{all-MiniLM-L6-v2} model which on average used all 25 epochs, early stopping occurred relatively quickly on the rest, within the first 15 epochs. This suggests that is might've been beneficial to train the first model for longer, as the scores were still rising
+The ANN classifier consistently outperforms the Logistic Regression head across all embedding models. Even though this gap is smaller in \texttt{paraphrase-mpnet-base-v2} model, it made a noticeable difference in the other two. This indicates that the non-linear decision boundaries learned by the ANN provide a significant advantage over the linear separability assumed by Logistic Regression, and suggests that the embedding spaces are not linearly separable for the emotion classification task. It is also noticeable that apart from the \texttt{all-MiniLM-L6-v2} model which on average used all 25 epochs, early stopping occurred relatively quickly on the rest, within the first 15 epochs. This suggests that it might have been beneficial to train the first model for longer, as the scores were still rising
 
 \subsubsection{Model Comparison} Among the embedding models evaluated, the highest performance scores were achieved by \texttt{all-MiniLM-L6-v2} in both accuracy and macro F1 score, regardless of the classifier head used. However, the performance differences between the embedding models are not substantial, indicating that all three models provide reasonably effective representations for the emotion classification task. The size of the models did also not show much effect on the performance, as the smallest model (with dimension 384) actually performed the best in comparison to the larger ones (with dimension 768). This could be due to the fact that the smaller model is less prone to overfitting.
 
