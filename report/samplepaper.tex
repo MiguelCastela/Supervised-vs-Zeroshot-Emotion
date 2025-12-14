@@ -184,13 +184,62 @@ After obtaining predictions for the test set, the model's performance is assesse
 
 \section{Experimental Setup}
 
-\subsection{sentence-transformers Models}
-
-\section{Results}
+In this section, we detail the specific models employed in both the supervised and zero-shot classification approaches, along with their configurations and relevant hyperparameters.
 
 \subsection{Supervised Models}
 
+\begin{table}[H]
+\centering
+\caption{Supervised Models and their configurations.}
+\label{tab:supervised_models}
+\begin{tabular}{lcc}
+\hline
+\textbf{Model} & \textbf{Embedding Dimension} & \textbf{Batch Size} \\
+\hline
+all-MiniLM-L6-v2 & 384 & 64 \\
+distilroberta-base-paraphrase-v1 & 768 & 64 \\
+seeds & \multicolumn{2}{c}{2025, 2026, 2027, 2028, 2029} \\
+\hline
+\end{tabular}
+\end{table} 
+
+
+\section{Results and Discussion}
+
+\subsection{Supervised Models}
+
+
+
+
+
+
+
 \subsubsection{NLI Models}
+
+
+\begin{table}[h]
+\centering
+\caption{Zero-Shot Classification Results}
+\label{tab:zero_shot_results}
+\begin{tabular}{lcc}
+\hline
+\textbf{Model Name} & \textbf{ACC} & \textbf{Macro F1} \\
+\hline
+MoritzLaurer/xtremedistil-l6-h256-zeroshot-v1.1-all-33 & 0.6120 & 0.5148 \\
+
+joeddav/xlm-roberta-large-xnli & 0.3505 & 0.3222 \\
+
+MoritzLaurer/bge-m3-zeroshot-v2.0 & 0.6960 & 0.6232 \\
+
+MoritzLaurer/deberta-v3-xsmall-zeroshot-v1.1-all-33 & 0.7045 & 0.6306 \\
+
+MoritzLaurer/ModernBERT-large-zeroshot-v2.0 & 0.7090 & 0.6304 \\
+
+facebook/bart-large-mnli & 0.4660 & 0.4333 \\
+\hline
+\end{tabular}
+\end{table}
+
 
 \subsection{Supervised vs Zero-Shot Classification}
 

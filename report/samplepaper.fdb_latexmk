@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1765679526.64436 "/home/castela/Documents/GitHub/DL-EmotionalModels/report/samplepaper.tex" "samplepaper.pdf" "samplepaper" 1765679527.00428 0
+["pdflatex"] 1765718143.71158 "/home/castela/Documents/GitHub/DL-EmotionalModels/report/samplepaper.tex" "samplepaper.pdf" "samplepaper" 1765718144.03427 0
   "/etc/texmf/web2c/texmf.cnf" 1733106275.85044 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/castela/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx0900.600pk" 1765676478.53688 22480 13d05df3f53e2e66e419cf8a42d64446 ""
   "/home/castela/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1000.600pk" 1765676478.01987 25396 9c145164332d486647b918664b081284 ""
@@ -11,7 +11,7 @@
   "/home/castela/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1000.600pk" 1765676479.0259 31872 b9d403d22f62048c180c1cf7d3cb1954 ""
   "/home/castela/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt0900.600pk" 1765676480.52394 17492 99a31b891d4c94341bfdfb0493735e14 ""
   "/home/castela/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1000.600pk" 1765676479.60791 20008 3c5837b3544f3d7f9beb3adaa2b052e2 ""
-  "/home/castela/Documents/GitHub/DL-EmotionalModels/report/samplepaper.tex" 1765679525.98561 14870 d60d772813de5075494b24ba0515b913 ""
+  "/home/castela/Documents/GitHub/DL-EmotionalModels/report/samplepaper.tex" 1765718143.46241 16057 abed4c4c688e664dbdd97eda62b77b72 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecbx0900.tfm" 1136768653 3584 1a7de6c99457381c64abc1a7c545505f ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecbx1000.tfm" 1136768653 3584 2d666ecf6d466d8b007246bc2f94d9da ""
@@ -75,8 +75,8 @@
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1733922934 6800790 4f44c5be00cf6bb5c5639010e479b2cb ""
   "fig1.eps" 1765659640.68472 357553 784a1d3035e9550a463f314c33bb157f ""
   "llncs.cls" 1765659640.68572 43402 5fb5a2dc40571aa40f3d199c00cbb986 ""
-  "samplepaper.aux" 1765679526.92512 3444 9ad7066f21bdb6ebd24a25c4f56638b5 "pdflatex"
-  "samplepaper.tex" 1765679525.98561 14870 d60d772813de5075494b24ba0515b913 ""
+  "samplepaper.aux" 1765718143.95295 3821 49817cef027051e13a64363004d79353 "pdflatex"
+  "samplepaper.tex" 1765718143.46241 16057 abed4c4c688e664dbdd97eda62b77b72 ""
   (generated)
   "samplepaper.aux"
   "samplepaper.log"

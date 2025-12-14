@@ -8,7 +8,10 @@ from torch.utils.data import DataLoader, TensorDataset
 # ---------------------------------------------------------
 
 # check TP2 assignment instructions for links to other model options
-MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
+#MODEL_NAME = "sentence-transformers/paraphrase-mpnet-base-v2"
+
+
+MODEL_NAME = "sentence-transformers/all-mpnet-base-v2"
 BATCH_SIZE_TRAIN = 64
 SEED = 2025
 
@@ -61,8 +64,14 @@ def load_emotion_dataset():
 
 def load_embedding_model(model_name: str):
     print(f"\nLoading model: {model_name}")
-    model = SentenceTransformer(model_name)
-    return model
+    try:
+        # Prefer initializing on the configured DEVICE; SentenceTransformer accepts a device string
+        model = SentenceTransformer(model_name, device=str(DEVICE))
+        return model
+    except Exception as e:
+        print(f"Warning: failed to load model on {DEVICE} ({e}). Falling back to CPU.")
+        model = SentenceTransformer(model_name, device="cpu")
+        return model
 
 
 def prepare_dataloaders(X_train, y_train, X_val, y_val, X_test, y_test):

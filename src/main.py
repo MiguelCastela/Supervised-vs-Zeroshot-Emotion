@@ -1,5 +1,5 @@
 from dataloader import SEED, set_seed, load_emotion_dataset, load_embedding_model, prepare_dataloaders, DEVICE, MODEL_NAME 
-from transformer_classifier import compute_embeddings, train_ann_classifier, evaluate_on_test
+from transformer_classifier import compute_embeddings, train_ann_classifier, evaluate_on_test, train_logreg_classifier, evaluate_sklearn_classifier
 from NLI import part_two as run_nli_part_two
 import numpy as np
 import argparse
@@ -8,7 +8,7 @@ import os
 N_SEEDS = 5
 
 
-def part_one():
+def part_one(head_type: str = "ann"):
 
     emb_model = load_embedding_model(MODEL_NAME)
 
@@ -39,11 +39,12 @@ def part_one():
             X_train, y_train, X_val, y_val, X_test, y_test
         )
 
-        # 5) Train ANN classifier
-        ann = train_ann_classifier(input_dim, num_classes, train_loader, val_loader)
-
-        # 6) Evaluate on test set
-        acc, f1, cm = evaluate_on_test(ann, test_loader)
+        if head_type == "logreg":
+            clf = train_logreg_classifier(X_train, y_train)
+            acc, f1, cm = evaluate_sklearn_classifier(clf, X_test, y_test)
+        else:
+            ann = train_ann_classifier(input_dim, num_classes, train_loader, val_loader)
+            acc, f1, cm = evaluate_on_test(ann, test_loader)
         accs.append(acc)
         f1s.append(f1)
         cms.append(cm)
@@ -82,7 +83,7 @@ def part_one():
 def part_two():
     """Run NLI zero-shot classification (current `NLI.py` main) from main.py."""
     # Using DeBERTa v3 large zero-shot model
-    model_name = "joeddav/xlm-roberta-large-xnli"
+    model_name = "MoritzLaurer/xtremedistil-l6-h256-zeroshot-v1.1-all-33"
     acc_nli, f1_nli, cm_nli, _ = run_nli_part_two(model_name=model_name)
     print("\n========== Part 2: NLI (Zero-Shot) ==========")
     print(f"Model: {model_name}")
@@ -115,8 +116,7 @@ if __name__ == "__main__":
     print(f"Number of test samples: {len(X_test_texts)}")
     print(f"Example text: {X_train_texts[0]}    Label: {label_names[y_train[0]]}")
 
-    part_two()
-
+    part_one(head_type="logreg")
     
 
     

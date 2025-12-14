@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 from sklearn.metrics import accuracy_score, confusion_matrix, f1_score
+from sklearn.linear_model import LogisticRegression
 from dataloader import DEVICE
 
 
@@ -139,4 +140,33 @@ def evaluate_on_test(model, test_loader, device: torch.device = DEVICE):
     print("Confusion matrix:")
     print(cm)
 
+    return acc, f1, cm
+
+
+def train_logreg_classifier(X_train, y_train):
+    """Train a multinomial Logistic Regression head on frozen embeddings.
+
+    Uses lbfgs solver with multiclass='multinomial'. Increase max_iter for convergence.
+    """
+    clf = LogisticRegression(
+        solver="lbfgs",
+        max_iter=200,
+        multi_class="multinomial",
+        n_jobs=-1,
+    )
+    clf.fit(X_train, y_train)
+    return clf
+
+
+def evaluate_sklearn_classifier(model, X_test, y_test):
+    """Evaluate a scikit-learn classifier on numpy embeddings, returning (acc, f1, cm)."""
+    preds = model.predict(X_test)
+    acc = accuracy_score(y_test, preds)
+    f1 = f1_score(y_test, preds, average='macro')
+    cm = confusion_matrix(y_test, preds)
+    print("\n========== Test Results (LogReg) ==========")
+    print(f"Accuracy:  {acc:.4f}")
+    print(f"Macro F1 Score: {f1:.4f}")
+    print("Confusion matrix:")
+    print(cm)
     return acc, f1, cm
