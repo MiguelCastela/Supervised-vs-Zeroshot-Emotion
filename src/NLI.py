@@ -75,5 +75,19 @@ def part_two(model_name: str = "MoritzLaurer/xtremedistil-l6-h256-zeroshot-v1.1-
 
     from sklearn.metrics import f1_score
     f1 = f1_score(true_labels, predicted_labels, average="macro")
+    
+    # Save misclassified samples to a text file
+    misclassified_path = "misclassified_nli.txt"
+    misclassified_count = 0
+    with open(misclassified_path, "w", encoding="utf-8") as f:
+        f.write("Misclassified samples (Zero-Shot NLI)\n")
+        f.write(f"Model: {model_name}\n")
+        f.write(f"Template: {template}\n\n")
+        for text, true_lbl, pred_lbl in zip(X_test_texts, true_labels, predicted_labels):
+            if true_lbl != pred_lbl:
+                misclassified_count += 1
+                f.write(f"True: {true_lbl} | Pred: {pred_lbl}\n")
+                f.write(f"Text: {text}\n\n")
+    print(f"Saved {misclassified_count} misclassified samples to {misclassified_path}")
 
     return acc, f1, cm, predicted_labels

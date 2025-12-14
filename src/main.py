@@ -83,7 +83,7 @@ def part_one(head_type: str = "ann"):
 def part_two():
     """Run NLI zero-shot classification (current `NLI.py` main) from main.py."""
     # Using DeBERTa v3 large zero-shot model
-    model_name = "MoritzLaurer/xtremedistil-l6-h256-zeroshot-v1.1-all-33"
+    model_name = "MoritzLaurer/deberta-v3-xsmall-zeroshot-v1.1-all-33"
     acc_nli, f1_nli, cm_nli, _ = run_nli_part_two(model_name=model_name)
     print("\n========== Part 2: NLI (Zero-Shot) ==========")
     print(f"Model: {model_name}")
@@ -116,7 +116,8 @@ if __name__ == "__main__":
     print(f"Number of test samples: {len(X_test_texts)}")
     print(f"Example text: {X_train_texts[0]}    Label: {label_names[y_train[0]]}")
 
-    part_one(head_type="logreg")
+    #part_one(head_type="logreg")
+    part_two()
     
 
     
