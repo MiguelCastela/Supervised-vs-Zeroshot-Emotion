@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1765753513.83246 "/home/castela/Documents/GitHub/DL-EmotionalModels/report/samplepaper.tex" "samplepaper.pdf" "samplepaper" 1765753514.40457 0
+["pdflatex"] 1765755783.55186 "/home/castela/Documents/GitHub/DL-EmotionalModels/report/samplepaper.tex" "samplepaper.pdf" "samplepaper" 1765755784.10154 0
   "/etc/texmf/web2c/texmf.cnf" 1733106275.85044 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/castela/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx0900.600pk" 1765676478.53688 22480 13d05df3f53e2e66e419cf8a42d64446 ""
   "/home/castela/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1000.600pk" 1765676478.01987 25396 9c145164332d486647b918664b081284 ""
@@ -10,7 +10,7 @@
   "/home/castela/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1000.600pk" 1765676479.0259 31872 b9d403d22f62048c180c1cf7d3cb1954 ""
   "/home/castela/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt0900.600pk" 1765676480.52394 17492 99a31b891d4c94341bfdfb0493735e14 ""
   "/home/castela/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1000.600pk" 1765676479.60791 20008 3c5837b3544f3d7f9beb3adaa2b052e2 ""
-  "/home/castela/Documents/GitHub/DL-EmotionalModels/report/samplepaper.tex" 1765753513.60558 27646 dc74ab85904e5ffca89f0013a969caa8 ""
+  "/home/castela/Documents/GitHub/DL-EmotionalModels/report/samplepaper.tex" 1765755783.30987 24682 3718114c68660cf8c50947183359e5a0 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecbx0900.tfm" 1136768653 3584 1a7de6c99457381c64abc1a7c545505f ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecbx1000.tfm" 1136768653 3584 2d666ecf6d466d8b007246bc2f94d9da ""
@@ -88,8 +88,8 @@
   "cov_values_NLI.png" 1765752521.02763 51531 57620013911b017b961eaa313a69db4f ""
   "cov_values_supervised.png" 1765752520.97553 77705 d34ab09373017450a26baf1e3ef68b8c ""
   "llncs.cls" 1765659640.68572 43402 5fb5a2dc40571aa40f3d199c00cbb986 ""
-  "samplepaper.aux" 1765753514.31436 4870 34e766541d900984c99416447185b5f2 "pdflatex"
-  "samplepaper.tex" 1765753513.60558 27646 dc74ab85904e5ffca89f0013a969caa8 ""
+  "samplepaper.aux" 1765755784.00812 4135 40e38096904ae246a97fc6dbb0a4083b "pdflatex"
+  "samplepaper.tex" 1765755783.30987 24682 3718114c68660cf8c50947183359e5a0 ""
   (generated)
   "samplepaper.aux"
   "samplepaper.log"
