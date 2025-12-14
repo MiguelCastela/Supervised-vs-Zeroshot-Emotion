@@ -81,7 +81,7 @@ Surprise & 572   & 81  & 66  & 3.6\% \\
 \end{tabular}
 \end{table}
 
-
+\vspace{-2em}
 \noindent
 \\
 By looking at table ~\ref{tab:dataset_dist}, it's clear that the dataset is imbalanced, with the \textit{joy} and \textit{sadness} classes being significantly more represented, together accounting for over 60\% of the data. In contrast, the \textit{surprise} class is the least represented by a considerable margin, 3.6\%. This imbalance could lead to biased model performance, favoring the majority classes, and makes it clear that ``Accuracy'' might not be the best metric to evaluate the models.
@@ -355,90 +355,92 @@ This discrepancy is due to a different reason: what each model was taught during
 This difference could also be attributed to the architecture of each model, as some may already have an outdated architecture that doesn't perform as well as more recent ones. For example, \texttt{facebook/bart-large-mnli} is based on the BART architecture, which, while powerful, has been surpassed by newer architectures like DeBERTa and ModernBERT in various NLP tasks.
 
 \subsection{Supervised vs Zero-Shot Classification}
+\noindent
+\\
+After analyzing the results from both the supervised and zero-shot classification approaches, several key observations can be made regarding the best performing models and their comparative performance.
+
+\noindent
+\\
+The supervised ANN classifier, despite relying on a comparatively smaller embedding model (\texttt{all-MiniLM-L6-v2}), demonstrates superior overall performance when compared to the zero-shot NLI-based approach.
+
+\noindent
+\\
+In particular, the supervised method achieves higher scores across the main evaluation metrics:
+\begin{itemize}
+    \item \textbf{Accuracy:} Supervised ANN (mean = 0.7315) outperforms NLI (0.7045).
+    \item \textbf{Macro F1:} Supervised ANN (mean = 0.6556) exceeds NLI (0.6306).
+\end{itemize}
 
 
 
+\subsection{Performance Analysis}
 
 
+A class-level analysis of the recall (true positive rate) reveals where each model excels, based on the row-normalized confusion matrices. Recall is derived from the diagonal elements of the row-normalized matrices.
+
+\begin{table}[H]
+\centering
+\caption{Recall Comparison on Test Set (Supervised ANN vs. NLI Zero-Shot)}
+\label{tab:recall_comparison}
+\begin{tabular}{lccc}
+\hline
+\textbf{Emotion} & \textbf{Supervised ANN} & \textbf{NLI Zero-Shot} & \textbf{Difference} \\
+\textbf{Class Index} & \textbf{Recall} ($\pm \sigma$) & \textbf{Recall $\pm \sigma = 0$} & \textbf{(ANN - NLI)} \\
+\hline
+Joy (0) & $0.797 \pm 0.010$ & $0.764$ & $+0.033$ \\
+Sadness (1) & $0.801 \pm 0.007$ & $0.722$ & $\mathbf{+0.079}$ \\
+Anger (2) & $0.484 \pm 0.016$ & $0.722$ & $\mathbf{-0.238}$ \\
+Fear (3) & $0.678 \pm 0.024$ & $0.709$ & $-0.031$ \\
+Love (4) & $0.682 \pm 0.017$ & $0.683$ & $-0.001$ \\
+Surprise (5) & $0.403 \pm 0.015$ & $0.500$ & $\mathbf{-0.097}$ \\
+\hline
+\end{tabular}
+\end{table}
+
+\noindent
+The data in Table 7 immediately highlights the discrepancy in performance for two of the most critical classes:
+\begin{itemize}
+    \item The \textbf{Supervised ANN} exhibits the highest recall for the \texttt{Joy} and \texttt{Sadness} classes, resulting in a considerable advantage of $\mathbf{+0.079}$ for \texttt{Sadness} over the NLI model. This suggests that the supervised training effectively utilizes the embeddings to distinguish these two largest classes.
+    \item The \textbf{NLI Zero-Shot} model exhibits a clear and substantial advantage in classifying the \texttt{Anger} class, with a difference of $\mathbf{-0.238}$ in recall compared to the Supervised ANN. Furthermore, the NLI model performs significantly better on the least represented \texttt{Surprise} class ($\mathbf{-0.097}$), indicating a more robust handling of certain minority classes, likely due to the generalized semantic knowledge of the base \texttt{NLI} model.
+\end{itemize}
+
+\noindent
+Overall, the Supervised ANN achieved a higher overall Macro F1 score, primarily driven by its superior recall on the largest classes, \texttt{Joy} and \texttt{Sadness}. However, the NLI model's strong performance on \texttt{Anger} and \texttt{Surprise} demonstrates the competitive nature of zero-shot transfer learning, especially where the supervised head struggles to learn complex boundaries.
+\subsection{Error Analysis and Confusions}
 
 
+\vspace{-1.5\baselineskip} % Adjust value as needed to remove unwanted space
 
-
-\subsection{NLI Models}
-
-\begin{figure}
-\includegraphics[width=\textwidth]{fig1.eps}
-\caption{A figure caption is always placed below the illustration.
-Please note that short captions are centered, while long ones are
-justified by the macro package automatically.} \label{fig1}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.48\textwidth]{cov_percentage_supervised.png}\hfill
+\includegraphics[width=0.48\textwidth]{cov_percentage_NLI.png}
+\caption{Covariance percentage heatmaps: Supervised (left) vs. NLI (right).}
 \end{figure}
 
-\begin{theorem}
-This is a sample theorem. The run-in heading is set in bold, while
-the following text appears in italics. Definitions, lemmas,
-propositions, and corollaries are styled the same way.
-\end{theorem}
-%
-% the environments 'definition', 'lemma', 'proposition', 'corollary',
-% 'remark', and 'example' are defined in the LLNCS documentclass as well.
-%
-\begin{proof}
-Proofs, examples, and remarks have the initial word in italics,
-while the following text appears in normal font.
-\end{proof}
-For citations of references, we prefer the use of square brackets
-and consecutive numbers. Citations using labels or the author/year
-convention are also acceptable. The following bibliography provides
-a sample reference list with entries for journal
-articles~\cite{ref_article1}, an LNCS chapter~\cite{ref_lncs1}, a
-book~\cite{ref_book1}, proceedings without editors~\cite{ref_proc1},
-and a homepage~\cite{ref_url1}. Multiple citations are grouped
-\cite{ref_article1,ref_lncs1,ref_book1},
-\cite{ref_article1,ref_book1,ref_proc1,ref_url1}.
+\vspace{-1.5\baselineskip}
 
-\begin{credits}
-\subsubsection{\ackname} A bold run-in heading in small font size at the end of the paper is
-used for general acknowledgments, for example: This study was funded
-by X (grant number Y).
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.48\textwidth]{cov_values_supervised.png}\hfill
+\includegraphics[width=0.48\textwidth]{cov_values_NLI.png}
+\caption{Covariance values heatmaps: Supervised (left) vs. NLI (right).}
+\end{figure}
 
-\subsubsection{\discintname}
-It is now necessary to declare any competing interests or to specifically
-state that the authors have no competing interests. Please place the
-statement with a bold run-in heading in small font size beneath the
-(optional) acknowledgments\footnote{If EquinOCS, our proceedings submission
-system, is used, then the disclaimer can be provided directly in the system.},
-for example: The authors have no competing interests to declare that are
-relevant to the content of this article. Or: Author A has received research
-grants from Company W. Author B has received a speaker honorarium from
-Company X and owns stock in Company Y. Author C is a member of committee Z.
-\end{credits}
-%
-% ---- Bibliography ----
-%
-% BibTeX users should specify bibliography style 'splncs04'.
-% References will then be sorted and formatted in the correct style.
-%
-% \bibliographystyle{splncs04}
-% \bibliography{mybibliography}
-%
-\begin{thebibliography}{8}
-\bibitem{ref_article1}
-Author, F.: Article title. Journal \textbf{2}(5), 99--110 (2016)
+\noindent
+\\
+The supervised model's most significant error pattern is the misclassification of \texttt{Anger} (2), which is directly responsible for the low \texttt{Anger} recall.
+\begin{itemize}
+    \item \textbf{Misclassification of Anger (2):} The single largest source of error in the entire supervised analysis is the misclassification of true \texttt{Anger} samples. Approximately $35.5\%$ of texts expressing \texttt{Anger} were wrongly predicted as \texttt{Sadness}. A further $8.1\%$ were misclassified as \texttt{Joy}. This suggests that the ANN classifier, trained on \texttt{all-MiniLM-L6-v2} embeddings, maps \texttt{Anger} texts into a semantic region that heavily overlaps with \texttt{Sadness}.
+    \item \textbf{Misclassification of Surprise (5):} The model struggles significantly with the smallest class, \texttt{Surprise}, misclassifying $26.4\%$ of its samples as \texttt{Sadness} and $18.2\%$ as \texttt{Love}.
+\end{itemize}
 
-\bibitem{ref_lncs1}
-Author, F., Author, S.: Title of a proceedings paper. In: Editor,
-F., Editor, S. (eds.) CONFERENCE 2016, LNCS, vol. 9999, pp. 1--13.
-Springer, Heidelberg (2016). \doi{10.10007/1234567890}
+\noindent
+\\
+The NLI model, while robust on \texttt{Anger} and \texttt{Surprise}, shows greater difficulty distinguishing between other negative emotions.
+\begin{itemize}
+    \item \textbf{Confusion of Sadness and Love with Joy:} The model misclassifies $9.2\%$ of true \texttt{Sadness} samples and $13.8\%$ of true \texttt{Love} samples as \texttt{Joy}. This indicates a tendency of the NLI model to conflate positive and negative emotions, particularly when the emotional content is subtle or ambiguous.
+    \item \textbf{Confusion of Surprise with Sadness:} Similar to the supervised method, the NLI model's primary confusion for \texttt{Surprise} is \texttt{Sadness}, with $19.7\%$ of \texttt{Surprise} samples being misclassified.
+\end{itemize}
 
-\bibitem{ref_book1}
-Author, F., Author, S., Author, T.: Book title. 2nd edn. Publisher,
-Location (1999)
-
-\bibitem{ref_proc1}
-Author, A.-B.: Contribution title. In: 9th International Proceedings
-on Proceedings, pp. 1--2. Publisher, Location (2010)
-
-\bibitem{ref_url1}
-LNCS Homepage, \url{http://www.springer.com/lncs}, last accessed 2023/10/25
-\end{thebibliography}
 \end{document}
