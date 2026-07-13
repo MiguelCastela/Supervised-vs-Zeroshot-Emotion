@@ -1,8 +1,30 @@
-# Ignore Python bytecode/cache
+# Python bytecode / cache
 __pycache__/
 *.py[cod]
 
-# Ignore virtual environment directories
+# Virtual environments
 venv/
 .venv/
-.npy
+env/
+
+# Generated data artifacts (cached embeddings, labels, analysis dumps)
+data/*
+!data/.gitkeep
+*.npy
+misclassified_*.txt
+
+# LaTeX build artifacts
+report/*.aux
+report/*.log
+report/*.fls
+report/*.fdb_latexmk
+report/*.synctex.gz
+report/*.out
+report/*.toc
+report/*.bbl
+report/*.blg
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

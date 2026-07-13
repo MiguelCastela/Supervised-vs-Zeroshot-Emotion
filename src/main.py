@@ -1,6 +1,6 @@
 from dataloader import SEED, set_seed, load_emotion_dataset, load_embedding_model, prepare_dataloaders, DEVICE, MODEL_NAME 
 from transformer_classifier import compute_embeddings, train_ann_classifier, evaluate_on_test, train_logreg_classifier, evaluate_sklearn_classifier
-from NLI import part_two as run_nli_part_two
+from nli import part_two as run_nli_part_two
 import numpy as np
 import argparse
 import os
