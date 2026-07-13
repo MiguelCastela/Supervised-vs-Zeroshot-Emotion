@@ -142,3 +142,10 @@ course:
 - `P5_transformers.ipynb`: works through Transformer components on a toy corpus.
 
 These are self-contained and independent of the main `src/` project.
+
+## Authors
+
+- Miguel Castela
+- Miguel Martins
+
+University of Coimbra, Portugal.
