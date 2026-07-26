@@ -33,9 +33,11 @@ test sets.
 │   ├── transformer_classifier.py  Embedding computation, ANN and LogReg heads, evaluation
 │   ├── nli.py               Zero-shot NLI classification pipeline
 │   └── plot_covariance.py   Standalone script to plot a confusion matrix figure
-├── notebooks/               Supporting lab notebooks
+├── notebooks/               Course lab notebooks
 │   ├── P4_word_embeddings_seq2seq.ipynb   Word2Vec / GloVe / FastText and seq2seq
-│   └── P5_transformers.ipynb              Transformers on a toy corpus
+│   ├── P5_transformers.ipynb              Transformers on a toy corpus
+│   ├── P6_gnn_vs_ann.ipynb                Graph neural networks vs a plain ANN
+│   └── P7_reinforcement_learning_taxi.ipynb   Q-learning on Taxi-v3
 ├── report/                  LaTeX report (Springer LNCS template) and figures
 │   ├── samplepaper.tex      Report source
 │   └── samplepaper.pdf      Compiled report
@@ -134,12 +136,15 @@ Classification". Key findings include:
 
 ## Notebooks
 
-The `notebooks/` directory holds two supporting lab exercises used during the
-course:
+The `notebooks/` directory holds the course lab exercises. `P4` and `P5` cover the
+embedding and Transformer material that this project builds on directly; `P6` and
+`P7` are later sessions on other deep learning topics, kept here alongside them.
 
 - `P4_word_embeddings_seq2seq.ipynb`: builds small Word2Vec, GloVe, and
   FastText-like models and compares their embedding manifolds.
 - `P5_transformers.ipynb`: works through Transformer components on a toy corpus.
+- `P6_gnn_vs_ann.ipynb`: compares a graph neural network against a plain ANN.
+- `P7_reinforcement_learning_taxi.ipynb`: trains a Q-learning agent on Taxi-v3.
 
 These are self-contained and independent of the main `src/` project.
 
