@@ -118,11 +118,31 @@ each module:
 | Zero-shot model | `model_name` in `main.py` `part_two` | Any NLI zero-shot model |
 | Random seed | `SEED` in `dataloader.py` | Shared across parts for reproducibility |
 
+## Results
+
+Row-normalized confusion matrices on the test set, mean and standard deviation
+across seeds, for the supervised ANN head and the zero-shot NLI model.
+
+| Supervised (ANN head) | Zero-shot (NLI) |
+| --------------------- | --------------- |
+| ![Supervised confusion matrix, normalized](report/cov_percentage_supervised.png) | ![Zero-shot confusion matrix, normalized](report/cov_percentage_NLI.png) |
+
+Both approaches handle `joy` and `sadness` well and struggle with the two rarest
+labels. The supervised model leaks `anger` and `surprise` into `sadness`; the
+zero-shot model makes a different set of mistakes, driven by how each emotion word
+reads as an NLI hypothesis rather than by class frequency.
+
+The same matrices in raw counts, which make the class imbalance visible:
+
+| Supervised (ANN head) | Zero-shot (NLI) |
+| --------------------- | --------------- |
+| ![Supervised confusion matrix, counts](report/cov_values_supervised.png) | ![Zero-shot confusion matrix, counts](report/cov_values_NLI.png) |
+
 ## Report
 
 A full write-up of the methodology, experiments, and results is in
-`report/samplepaper.pdf`, titled "Emotional Models: Supervised vs. Zero-Shot
-Classification". Key findings include:
+[`report/samplepaper.pdf`](report/samplepaper.pdf), titled "Emotional Models:
+Supervised vs. Zero-Shot Classification". Key findings include:
 
 - The ANN head consistently outperforms Logistic Regression, indicating the
   embedding spaces are not linearly separable for this task.
